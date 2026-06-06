@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>breifd — Help Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --bg:       hsl(20,10%,7%);
+      --bg-s:     hsl(20,10%,5%);
+      --bg-c:     hsl(20,10%,11%);
+      --bg-h:     hsl(20,10%,13%);
+      --border:   hsl(20,8%,18%);
+      --fg:       hsl(20,5%,92%);
+      --fg-m:     hsl(20,5%,52%);
+      --fg-d:     hsl(20,5%,36%);
+      --accent:   hsl(24,85%,58%);
+      --accent-p: hsl(24,40%,13%);
+      --accent-b: hsl(24,85%,66%);
+      --green:    hsl(142,60%,45%);
+      --green-p:  hsl(142,30%,10%);
+      --amber:    hsl(38,85%,55%);
+      --amber-p:  hsl(38,40%,10%);
+      --red:      hsl(0,70%,55%);
+      --red-p:    hsl(0,30%,10%);
+      --blue:     hsl(210,80%,60%);
+      --blue-p:   hsl(210,30%,10%);
+      --shadow:   0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.25);
+    }
+    [data-theme="light"] {
+      --bg:       hsl(220,20%,98%);
+      --bg-s:     hsl(220,20%,96%);
+      --bg-c:     hsl(0,0%,100%);
+      --bg-h:     hsl(220,15%,94%);
+      --border:   hsl(220,15%,88%);
+      --fg:       hsl(220,15%,10%);
+      --fg-m:     hsl(220,8%,45%);
+      --fg-d:     hsl(220,8%,65%);
+      --accent:   hsl(24,80%,50%);
+      --accent-p: hsl(24,80%,96%);
+      --green-p:  hsl(142,50%,94%);
+      --amber-p:  hsl(38,80%,94%);
+      --red-p:    hsl(0,70%,96%);
+      --blue-p:   hsl(210,80%,96%);
+      --shadow:   0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+    }
+
+    /* ── Reset ── */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;height:100%}
+    body{font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;background:var(--bg);color:var(--fg);min-height:100vh}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    p{color:var(--fg-m);line-height:1.75}
+    strong{color:var(--fg);font-weight:600}
+    ul,ol{padding-left:20px;color:var(--fg-m)}
+    li{margin-bottom:4px;line-height:1.7}
+    code{font-family:'Space Mono',monospace;font-size:.78em;background:var(--bg-h);padding:2px 6px;border-radius:5px;color:var(--fg)}
+    pre{font-family:'Space Mono',monospace;background:hsl(0,0%,3%);color:hsl(20,5%,82%);border-radius:10px;padding:16px 20px;font-size:12.5px;overflow-x:auto;margin:16px 0;border:1px solid var(--border)}
+    kbd{font-family:'Space Mono',monospace;display:inline-flex;align-items:center;padding:1px 7px;border-radius:5px;font-size:11.5px;background:var(--bg-h);border:1px solid var(--border);color:var(--fg);box-shadow:0 1px 0 var(--border)}
+    em{color:var(--fg-m)}
+
+    /* ── Nav ── */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;background:var(--bg-s);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:0}
+    .nav-logo{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--fg);letter-spacing:-.02em;flex-shrink:0;padding-right:20px;border-right:1px solid var(--border);margin-right:20px}
+    .nav-logo span{color:var(--accent)}
+    .nav-label{font-size:13px;color:var(--fg-m);flex-shrink:0}
+    .search-bar{flex:1;max-width:380px;margin:0 auto;position:relative}
+    .search-bar input{width:100%;height:34px;padding:0 12px 0 36px;border-radius:8px;border:1px solid var(--border);background:var(--bg-c);color:var(--fg);font-size:13px;font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
+    .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-p)}
+    .search-bar input::placeholder{color:var(--fg-d)}
+    .search-bar .si{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--fg-d);font-size:14px;pointer-events:none}
+    .search-kbd{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:2px}
+    .search-kbd kbd{font-size:10px;padding:1px 4px}
+    .nav-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .nav-cta{font-size:12.5px;font-weight:500;color:#fff;padding:6px 14px;border-radius:7px;background:var(--accent);white-space:nowrap;flex-shrink:0}
+    .nav-cta:hover{text-decoration:none;opacity:.9}
+    .theme-btn{width:32px;height:32px;border-radius:7px;border:1px solid var(--border);background:var(--bg-c);color:var(--fg-m);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .theme-btn:hover{background:var(--bg-h)}
+
+    /* ── Three-column layout ── */
+    .layout{display:flex;padding-top:58px;min-height:100vh}
+
+    /* ── Left sidebar ── */
+    .sidebar{width:260px;flex-shrink:0;position:fixed;top:58px;bottom:0;overflow-y:auto;background:var(--bg-s);border-right:1px solid var(--border);padding:16px 0 40px}
+    .sidebar::-webkit-scrollbar{width:4px}
+    .sidebar::-webkit-scrollbar-track{background:transparent}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .sg{margin-bottom:2px}
+    .sg-hdr{padding:10px 16px 4px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-d);cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none}
+    .sg-hdr:hover{color:var(--fg-m)}
+    .sg-chev{font-size:10px;transition:transform .2s;display:inline-block}
+    .sg.closed .sg-chev{transform:rotate(-90deg)}
+    .sg.closed .sg-body{display:none}
+    .sl{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 16px;font-size:13px;color:var(--fg-m);text-decoration:none;transition:color .1s,background .1s;border-left:2px solid transparent;cursor:pointer}
+    .sl:hover{color:var(--fg);background:var(--bg-c);text-decoration:none}
+    .sl.active{color:var(--accent);background:var(--accent-p);border-left-color:var(--accent);font-weight:500}
+    .sl .ic{width:16px;text-align:center;flex-shrink:0;font-size:13px;opacity:.75}
+    .sl.active .ic{opacity:1}
+
+    /* ── Content ── */
+    .content{flex:1;min-width:0;margin-left:260px;margin-right:240px;padding:40px 48px 100px;max-width:none}
+    @media(max-width:1200px){.toc{display:none}.content{margin-right:0}}
+    @media(max-width:900px){.sidebar{display:none}.content{margin-left:0;padding:24px 20px 80px}}
+
+    /* ── Right TOC sidebar ── */
+    .toc{width:240px;flex-shrink:0;position:fixed;top:58px;right:0;bottom:0;overflow-y:auto;padding:24px 20px 40px;border-left:1px solid var(--border)}
+    .toc-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-d);margin-bottom:10px}
+    .toc-link{display:block;font-size:12.5px;color:var(--fg-m);padding:3px 0 3px 10px;border-left:1.5px solid var(--border);text-decoration:none;transition:color .1s,border-color .1s;line-height:1.45;margin-bottom:1px}
+    .toc-link:hover{color:var(--fg);text-decoration:none}
+    .toc-link.active{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+    .toc-link.sub{font-size:12px;padding-left:18px;color:var(--fg-d)}
+    .toc-link.sub.active{color:var(--accent)}
+
+    /* ── Section ── */
+    .sec{margin-bottom:80px;scroll-margin-top:80px}
+    .breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fg-d);margin-bottom:16px}
+    .breadcrumb a{color:var(--accent);text-decoration:none}
+    .breadcrumb a:hover{text-decoration:underline}
+    .bc-sep{color:var(--fg-d)}
+    .sec h2{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;color:var(--fg);line-height:1.25}
+    .sec .lead{font-size:15px;color:var(--fg-m);margin-bottom:24px;max-width:660px;line-height:1.7}
+    h3{font-size:15px;font-weight:600;margin:28px 0 10px;color:var(--fg)}
+    h4{font-size:13.5px;font-weight:600;margin:20px 0 8px;color:var(--fg)}
+
+    /* ── Hero (overview section) ── */
+    .hero-sec{padding-bottom:48px;margin-bottom:48px;border-bottom:1px solid var(--border)}
+    .hero-sec h1{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px;color:var(--fg)}
+    .hero-sec .hero-sub{font-size:16px;color:var(--fg-m);max-width:540px;line-height:1.7;margin-bottom:32px}
+    .hero-search{position:relative;max-width:480px;margin-bottom:36px}
+    .hero-search input{width:100%;height:46px;padding:0 14px 0 44px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg-c);color:var(--fg);font-size:14px;font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
+    .hero-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-p)}
+    .hero-search input::placeholder{color:var(--fg-d)}
+    .hero-search .si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--fg-d);font-size:16px;pointer-events:none}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+    .qcard{background:var(--bg-c);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;display:block;transition:border-color .15s,background .15s}
+    .qcard:hover{border-color:var(--accent);background:var(--bg-h);text-decoration:none}
+    .qcard-ic{font-size:20px;margin-bottom:10px;display:block}
+    .qcard-t{font-size:13px;font-weight:600;color:var(--fg);display:block;margin-bottom:3px}
+    .qcard-s{font-size:12px;color:var(--fg-m)}
+
+    /* ── Cards ── */
+    .card{background:var(--bg-c);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:10px}
+    .card-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
+    .card-2col .card{margin-bottom:0}
+    .card-ic{font-size:22px;margin-bottom:8px;display:block}
+    .card h3{margin:0 0 5px;font-size:14px}
+    .card p{font-size:13px;margin:0}
+
+    /* ── Callouts ── */
+    .callout{display:flex;gap:12px;padding:13px 16px;border-radius:9px;margin:18px 0;font-size:13.5px;line-height:1.65;border:1px solid}
+    .callout p{margin:0;color:inherit}
+    .ci{font-size:16px;flex-shrink:0;margin-top:1px}
+    .cw{background:var(--amber-p);border-color:var(--amber);color:hsl(38,70%,70%)}
+    .cn{background:var(--accent-p);border-color:var(--accent);color:hsl(24,60%,72%)}
+    .cd{background:var(--red-p);border-color:var(--red);color:hsl(0,60%,70%)}
+    [data-theme="light"] .cw{background:hsl(38,90%,96%);border-color:hsl(38,80%,70%);color:hsl(30,50%,30%)}
+    [data-theme="light"] .cn{background:hsl(24,80%,96%);border-color:hsl(24,70%,70%);color:hsl(24,50%,30%)}
+    [data-theme="light"] .cd{background:hsl(0,70%,97%);border-color:hsl(0,60%,70%);color:hsl(0,50%,35%)}
+
+    /* ── Badges ── */
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:500;border:1px solid}
+    .badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+    .bg{background:var(--green-p);border-color:var(--green);color:var(--green)}
+    .ba{background:var(--accent-p);border-color:var(--accent);color:var(--accent)}
+    .bb{background:var(--blue-p);border-color:var(--blue);color:var(--blue)}
+    .bw{background:var(--amber-p);border-color:var(--amber);color:var(--amber)}
+    .br{background:var(--red-p);border-color:var(--red);color:var(--red)}
+    [data-theme="light"] .bg{background:hsl(142,50%,94%);border-color:hsl(142,50%,60%);color:hsl(142,50%,30%)}
+    [data-theme="light"] .ba{background:hsl(24,80%,94%);border-color:hsl(24,70%,60%);color:hsl(24,60%,35%)}
+    [data-theme="light"] .bb{background:hsl(210,80%,94%);border-color:hsl(210,60%,60%);color:hsl(210,60%,30%)}
+    [data-theme="light"] .bw{background:hsl(38,80%,94%);border-color:hsl(38,70%,55%);color:hsl(30,55%,30%)}
+    [data-theme="light"] .br{background:hsl(0,70%,96%);border-color:hsl(0,60%,65%);color:hsl(0,55%,35%)}
+
+    /* ── Steps ── */
+    .steps{display:flex;flex-direction:column;gap:0;margin:20px 0}
+    .step{display:flex;gap:16px;padding-bottom:28px;position:relative}
+    .step:not(:last-child)::after{content:'';position:absolute;left:14px;top:30px;bottom:0;width:1px;background:var(--border)}
+    .step-n{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;z-index:1}
+    .step-body{padding-top:3px;min-width:0}
+    .step-body h3{margin:0 0 5px;font-size:14.5px}
+    .step-body p{font-size:13.5px;margin:4px 0 0;color:var(--fg-m)}
+
+    /* ── Tables ── */
+    .tw{background:var(--bg-c);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:16px 0}
+    table{width:100%;border-collapse:collapse}
+    th{text-align:left;padding:10px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--fg-d);border-bottom:1px solid var(--border);background:var(--bg-h)}
+    td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--fg-m)}
+    td:first-child{color:var(--fg)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg-h)}
+
+    /* ── State cards ── */
+    .sc{background:var(--bg-c);border:1px solid var(--border);border-radius:9px;padding:13px 16px;margin-bottom:8px}
+    .sc strong{font-size:13.5px;display:block;margin-bottom:3px}
+    .sc p{font-size:13px;margin:0}
+
+    /* ── Accordion FAQ ── */
+    details{background:var(--bg-c);border:1px solid var(--border);border-radius:9px;margin-bottom:7px;overflow:hidden}
+    details[open]{border-color:var(--accent)}
+    summary{padding:14px 18px;font-size:14px;font-weight:500;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;user-select:none;color:var(--fg)}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:'›';font-size:17px;color:var(--fg-d);transition:transform .2s;transform:rotate(90deg);flex-shrink:0}
+    details[open] summary::after{transform:rotate(270deg)}
+    .faq-body{padding:0 18px 14px;padding-top:12px;font-size:13.5px;color:var(--fg-m);line-height:1.7;border-top:1px solid var(--border)}
+
+    /* ── Bias pills ── */
+    .bias-row{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+    .bpill{padding:4px 12px;border-radius:99px;font-size:12px;font-weight:500}
+
+    /* ── Browser mockup ── */
+    .mock{margin:28px 0}
+    .mf{border-radius:11px;overflow:hidden;border:1px solid var(--border);max-width:640px;box-shadow:var(--shadow)}
+    .mc{background:hsl(0,0%,15%);padding:8px 14px;display:flex;align-items:center;gap:6px}
+    .md{width:10px;height:10px;border-radius:50%}
+    .md-r{background:#ff5f57}.md-y{background:#febc2e}.md-g{background:#28c840}
+    .mu{flex:1;background:hsl(0,0%,21%);border-radius:5px;padding:3px 10px;font-family:'Space Mono',monospace;font-size:10px;color:hsl(0,0%,52%);text-align:center;max-width:260px;margin:0 auto}
+    .mb{background:hsl(38,33%,93%);color:hsl(30,10%,10%);font-size:12px}
+    .mn{background:#fff;border-bottom:1px solid hsl(38,20%,85%);padding:9px 14px;display:flex;align-items:center;gap:10px}
+    .mlogo{font-family:'Space Mono',monospace;font-weight:700;font-size:12px}
+    .msp{flex:1}
+    .mcon{padding:12px 14px}
+    .mcard{background:#fff;border:1px solid hsl(38,20%,85%);border-radius:8px;padding:9px 12px;margin-bottom:8px}
+    .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .mtag{display:inline-block;background:hsl(38,20%,88%);border-radius:99px;padding:2px 8px;font-size:9px;color:hsl(30,8%,40%)}
+    .mpill{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:hsl(38,20%,88%);font-size:11px}
+    .mrow{display:flex;gap:6px;align-items:center}
+    .mprog{height:3px;background:hsl(38,20%,88%)}
+    .mprog-f{height:100%;background:hsl(24,80%,50%);width:42%}
+    .mibtn{width:26px;height:26px;border-radius:6px;background:hsl(38,20%,90%);display:flex;align-items:center;justify-content:center;font-size:11px}
+    .mdover{padding:14px;background:rgba(20,14,8,.55);display:flex;align-items:center;justify-content:center}
+    .mdlg{background:#fff;border-radius:10px;padding:14px;width:100%;max-width:290px}
+    .mdlg-t{font-size:12px;font-weight:600;margin-bottom:8px}
+    .mkbd{font-family:'Space Mono',monospace;font-size:9px;padding:2px 6px;border-radius:4px;border:1px solid hsl(38,20%,80%);background:hsl(38,20%,96%)}
+    .msr{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid hsl(38,20%,92%);font-size:10px;color:hsl(30,8%,40%)}
+    .msr:last-child{border-bottom:none}
+    .caption{font-size:12px;color:var(--fg-d);text-align:center;margin-top:8px;font-style:italic}
+
+    /* ── Divider ── */
+    .sec-divider{border:none;border-top:1px solid var(--border);margin:0 0 80px}
+
+    /* ── Footer ── */
+    .footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--fg-d)}
+    .footer a{color:var(--fg-m)}
+    .footer a:hover{color:var(--fg)}
+    .footer-links{display:flex;gap:16px}
+
+    /* ── Search hide ── */
+    .sec.s-hide{display:none}
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <a href="#overview" class="nav-logo">breifd<span>.</span></a>
+  <span class="nav-label">Help Center</span>
+  <div class="search-bar">
+    <span class="si">🔍</span>
+    <input type="text" placeholder="Search docs…" oninput="doSearch(this.value)" id="nav-search">
+    <div class="search-kbd"><kbd>⌘</kbd><kbd>K</kbd></div>
+  </div>
+  <div class="nav-r">
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">☀️</button>
+    <a href="https://breifd.it" target="_blank" rel="noopener" class="nav-cta">Open App →</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- ── Left sidebar ── -->
+<aside class="sidebar">
+  <div class="sg">
+    <div class="sg-hdr" onclick="toggleSG(this)">Overview <span class="sg-chev">›</span></div>
+    <div class="sg-body">
+      <a href="#overview" class="sl"><span class="ic">✦</span>Introduction</a>
+      <a href="#getting-started" class="sl"><span class="ic">🚀</span>Getting Started</a>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sg-hdr" onclick="toggleSG(this)">Core Pages <span class="sg-chev">›</span></div>
+    <div class="sg-body">
+      <a href="#dashboard" class="sl"><span class="ic">🏠</span>Dashboard</a>
+      <a href="#brief-detail" class="sl"><span class="ic">📖</span>Reading a Brief</a>
+      <a href="#my-topics" class="sl"><span class="ic">📋</span>My Topics</a>
+      <a href="#past-briefings" class="sl"><span class="ic">📁</span>Past Briefings</a>
+      <a href="#settings" class="sl"><span class="ic">⚙️</span>Settings</a>
+      <a href="#shared-briefs" class="sl"><span class="ic">🔗</span>Shared Briefs</a>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sg-hdr" onclick="toggleSG(this)">Features <span class="sg-chev">›</span></div>
+    <div class="sg-body">
+      <a href="#keyboard-shortcuts" class="sl"><span class="ic">⌨️</span>Keyboard Shortcuts</a>
+      <a href="#focus-mode" class="sl"><span class="ic">🎯</span>Focus Mode</a>
+      <a href="#tts" class="sl"><span class="ic">🔊</span>Listen (Audio)</a>
+      <a href="#pinning" class="sl"><span class="ic">📌</span>Pinning Stories</a>
+      <a href="#mood-checkin" class="sl"><span class="ic">😊</span>Mood Check-in</a>
+      <a href="#bias-indicator" class="sl"><span class="ic">⚖️</span>Source Bias Labels</a>
+      <a href="#referral" class="sl"><span class="ic">🎁</span>Referrals</a>
+      <a href="#tutorial" class="sl"><span class="ic">🧭</span>Tutorial</a>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sg-hdr" onclick="toggleSG(this)">Reference <span class="sg-chev">›</span></div>
+    <div class="sg-body">
+      <a href="#known-bugs" class="sl"><span class="ic">🐛</span>Known Issues</a>
+      <a href="#faq" class="sl"><span class="ic">❓</span>FAQ</a>
+      <a href="#routes" class="sl"><span class="ic">🗺️</span>Pages &amp; Routes</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ── Content ── -->
+<main class="content">
+
+  <!-- Overview / Hero -->
+  <section id="overview" class="sec hero-sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Introduction</span></div>
+    <h1>Welcome to breifd</h1>
+    <p class="hero-sub">Your complete guide to the app — from getting started to mastering every feature, shortcut, and setting.</p>
+    <div class="hero-search">
+      <span class="si">🔍</span>
+      <input type="text" placeholder="Search docs… (e.g. keyboard shortcuts, focus mode)" oninput="doSearch(this.value)">
+    </div>
+    <div class="card-grid">
+      <a href="#getting-started" class="qcard"><span class="qcard-ic">🚀</span><span class="qcard-t">Getting Started</span><span class="qcard-s">Up and running in 3 minutes</span></a>
+      <a href="#keyboard-shortcuts" class="qcard"><span class="qcard-ic">⌨️</span><span class="qcard-t">Keyboard Shortcuts</span><span class="qcard-s">J, K, S, Enter, Esc, ?</span></a>
+      <a href="#settings" class="qcard"><span class="qcard-ic">⚙️</span><span class="qcard-t">Settings</span><span class="qcard-s">Delivery, language, timezone</span></a>
+      <a href="#known-bugs" class="qcard"><span class="qcard-ic">🐛</span><span class="qcard-t">Known Issues</span><span class="qcard-s">Common gotchas explained</span></a>
+      <a href="#focus-mode" class="qcard"><span class="qcard-ic">🎯</span><span class="qcard-t">Focus Mode</span><span class="qcard-s">5-sentence AI summary</span></a>
+      <a href="#faq" class="qcard"><span class="qcard-ic">❓</span><span class="qcard-t">FAQ</span><span class="qcard-s">Frequently asked questions</span></a>
+    </div>
+  </section>
+
+  <!-- What is breifd -->
+  <section id="what-is-breifd" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Introduction</span></div>
+    <h2>What is breifd?</h2>
+    <p class="lead">breifd is a free AI-powered daily newsletter. Pick the topics you care about and every morning, a personalized briefing lands in your inbox — written like real journalism, not bullet points.</p>
+    <div class="card-2col">
+      <div class="card"><span class="card-ic">📰</span><h3>Personalized Topics</h3><p>Choose from 159 topics and 1,048 subtopics — NBA to neuroscience to cybersecurity.</p></div>
+      <div class="card"><span class="card-ic">🤖</span><h3>AI-Written</h3><p>Generated from hundreds of sources, edited for clarity and depth.</p></div>
+      <div class="card"><span class="card-ic">⏰</span><h3>Daily Delivery</h3><p>Arrives every morning at 7 AM (or whatever time you set). No algorithms, no doomscrolling.</p></div>
+      <div class="card"><span class="card-ic">💸</span><h3>Completely Free</h3><p>No tiers, no credit card, no paywalls. Audio, archive, unlimited topics — free.</p></div>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section id="getting-started" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Getting Started</span></div>
+    <h2>Getting Started</h2>
+    <p class="lead">You'll be up and running in under 3 minutes.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Create your account</h3><p>Go to <a href="https://breifd.it/signup" target="_blank" rel="noopener">breifd.it/signup</a>. Enter your email and a password (min 6 characters). Click <strong>Sign up</strong>.</p></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Verify your email</h3><p>Check your inbox for a verification link. Click it — you'll be redirected back automatically.</p>
+        <div class="callout cw" style="margin-top:12px"><span class="ci">⚠️</span><p><strong>Heads up:</strong> Skipping email verification will redirect you back to the verify page every time you try to access topic selection or the dashboard.</p></div></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Pick your topics</h3><p>Browse by group (Technology, Sports, Science…), expand a group, then a category to see subtopics. Select as many as you like — no limit. Hit <strong>Continue</strong> when done.</p>
+        <div class="callout cn" style="margin-top:12px"><span class="ci">💡</span><p><strong>Tip:</strong> Each category has a "Select all" shortcut to grab everything in, say, AI or NBA without clicking each subtopic individually.</p></div></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Wait for your first briefing</h3><p>Briefings are generated overnight and arrive at 7 AM the next morning. Until then the dashboard shows: <em>"Your briefing will arrive in your inbox tomorrow morning at 7 AM."</em></p></div></div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>Dashboard</h2>
+    <p class="lead">The dashboard at <code>/dashboard</code> is your home base — your briefing, a public explore feed, and your pinned stories all in one view.</p>
+    <div class="mock"><div class="mf">
+      <div class="mc"><div class="md md-r"></div><div class="md md-y"></div><div class="md md-g"></div><div class="mu">breifd.it/dashboard</div></div>
+      <div class="mb">
+        <div class="mn"><div class="mlogo">breifd</div><div class="msp"></div><div class="mrow"><span style="font-size:10px;color:#8a7a6a;margin-right:4px">My Topics</span><div class="mpill">⚙️</div><div class="mpill">❓</div><div class="mpill">☀️</div><div class="mpill">🔔</div><div style="width:22px;height:22px;border-radius:50%;background:hsl(24,80%,88%);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">S</div></div></div>
+        <div class="mcon">
+          <div style="font-size:9px;color:#8a7a6a;margin-bottom:3px">Good morning, Alex 👋</div>
+          <div style="font-size:11px;font-weight:600;margin-bottom:6px">Your Briefing</div>
+          <div class="mcard"><div style="font-weight:600;font-size:10px;margin-bottom:2px">AI &amp; Machine Learning</div><div style="font-size:8.5px;color:#8a7a6a;margin-bottom:4px">Today · 4 min read</div><div style="font-size:9px;color:#5a4a3a;line-height:1.5">OpenAI announced new reasoning models achieving state-of-the-art performance on math and coding tasks…</div></div>
+          <div style="font-size:10px;font-weight:600;margin-bottom:6px;margin-top:8px">Explore All Briefs</div>
+          <div class="mgrid"><div class="mcard" style="margin-bottom:0"><div style="font-size:9px;font-weight:600;margin-bottom:1px">Climate Change</div><div style="font-size:8px;color:#8a7a6a">World · 3 min</div></div><div class="mcard" style="margin-bottom:0"><div style="font-size:9px;font-weight:600;margin-bottom:1px">NBA Playoffs</div><div style="font-size:8px;color:#8a7a6a">Sports · 2 min</div></div><div class="mcard" style="margin-bottom:0"><div style="font-size:9px;font-weight:600;margin-bottom:1px">Fed Rate Decision</div><div style="font-size:8px;color:#8a7a6a">Finance · 4 min</div></div><div class="mcard" style="margin-bottom:0"><div style="font-size:9px;font-weight:600;margin-bottom:1px">SpaceX Launch</div><div style="font-size:8px;color:#8a7a6a">Science · 3 min</div></div></div>
+        </div>
+      </div>
+    </div><p class="caption">Dashboard — Your Briefing at the top, Explore feed below</p></div>
+    <h3>Header bar</h3>
+    <div class="tw"><table><thead><tr><th>Element</th><th>What it does</th></tr></thead><tbody>
+      <tr><td><strong>breifd</strong> logo</td><td>Stays on dashboard — no navigation</td></tr>
+      <tr><td>Greeting text</td><td>"Good morning/afternoon/evening, [name]" — desktop only</td></tr>
+      <tr><td><strong>My Topics</strong></td><td>Opens topic drawer (desktop); also in profile dropdown on mobile</td></tr>
+      <tr><td>⚙️ Settings</td><td>Navigates to <code>/settings</code></td></tr>
+      <tr><td>❓ Help</td><td>Re-opens the guided tour (desktop only)</td></tr>
+      <tr><td>☀️/🌙 Theme</td><td>Switches light/dark mode</td></tr>
+      <tr><td>🔔 Bell</td><td>Notification panel — last 7 days of briefings; unread shown with a pulsing dot</td></tr>
+      <tr><td>Avatar circle</td><td>Opens profile dropdown</td></tr>
+    </tbody></table></div>
+    <h3>Profile dropdown</h3>
+    <div class="tw"><table><thead><tr><th>Item</th><th>Action</th></tr></thead><tbody>
+      <tr><td>Share breifd</td><td>Copies your referral link to clipboard</td></tr>
+      <tr><td>Past Briefings</td><td>Goes to <code>/briefings</code></td></tr>
+      <tr><td>My Topics</td><td>Opens topic drawer</td></tr>
+      <tr><td>Dark/Light mode</td><td>Mobile only</td></tr>
+      <tr><td>Show tutorial</td><td>Reopens the guided tour (mobile only)</td></tr>
+      <tr><td>Settings</td><td>Goes to <code>/settings</code></td></tr>
+      <tr><td>Sign Out</td><td>Signs out, redirects to <code>/</code></td></tr>
+    </tbody></table></div>
+    <h3>Your Briefing — three states</h3>
+    <div class="sc" style="border-left:3px solid hsl(38,80%,55%)"><strong>No topics selected</strong><p>Prompt to pick topics. Click the link to go to topic selection.</p></div>
+    <div class="sc" style="border-left:3px solid hsl(210,70%,55%)"><strong>Topics set, briefing not delivered yet</strong><p>"Your briefing will arrive in your inbox tomorrow morning at 7 AM." Normal — briefs are generated overnight.</p></div>
+    <div class="sc" style="border-left:3px solid hsl(142,55%,45%)"><strong>Briefing delivered</strong><p>Card with optional image, title, read time, and a 22-word preview. Click anywhere to open the full brief.</p></div>
+    <h3>Explore All Briefs</h3>
+    <ul>
+      <li><strong>Date navigation</strong> — &lt; and &gt; arrows browse other days. Cannot go into the future.</li>
+      <li><strong>Archive search</strong> — searches title, topic, category, and content. 250ms debounce.</li>
+      <li><strong>Category filter pills</strong> — filter the grid by category (Tech, Business, World…).</li>
+      <li><strong>Hover to reveal</strong> — pin (📌) and share (🔗) icons appear on card hover.</li>
+      <li><strong>Fallback</strong> — if today's briefs haven't been generated yet, shows the most recent day with content — but only if that day is within the last 2 days. Beyond that, the feed shows empty to signal a generation failure rather than serving stale content.</li>
+    </ul>
+    <h3>Testimonial prompt</h3>
+    <p style="font-size:14px;color:var(--fg-m)">After 3+ days as a user, a banner appears on the Dashboard asking if you'd like to leave a testimonial. Note: it's your <em>submitted testimonial text</em> that gets shown on the breifd.it homepage — not the banner itself. Dismiss with ✕ (stored in localStorage, won't reappear).</p>
+  </section>
+
+  <!-- Brief Detail -->
+  <section id="brief-detail" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>Reading a Brief</h2>
+    <p class="lead">The brief detail page at <code>/brief/:id</code> is where you read each story. An orange reading progress bar runs under the header and fills as you scroll.</p>
+    <div class="mock"><div class="mf">
+      <div class="mc"><div class="md md-r"></div><div class="md md-y"></div><div class="md md-g"></div><div class="mu">breifd.it/brief/abc123</div></div>
+      <div class="mb">
+        <div class="mprog"><div class="mprog-f"></div></div>
+        <div class="mn"><div style="font-size:10px;color:#8a7a6a">← Back</div><div class="msp"></div><div class="mrow"><div class="mibtn">🎯</div><div class="mibtn">🔊</div><div class="mibtn">📌</div><div class="mibtn">🔗</div></div></div>
+        <div class="mcon">
+          <div class="mtag">Artificial Intelligence</div>
+          <div style="font-size:12px;font-weight:600;margin:6px 0 3px;line-height:1.3">OpenAI's New Models Push Reasoning Benchmarks</div>
+          <div style="font-size:8.5px;color:#8a7a6a;margin-bottom:8px">Jun 5 · 4 min · Reuters, WSJ, The Verge</div>
+          <div style="font-size:10px;color:#5a4a3a;line-height:1.55">The latest models from OpenAI have achieved remarkable results on reasoning benchmarks, surpassing previous state-of-the-art on mathematical and coding tasks…</div>
+        </div>
+      </div>
+    </div><p class="caption">Brief detail — orange reading progress bar + action icons (🎯🔊📌🔗) in header</p></div>
+    <h3>Header tools</h3>
+    <div class="tw"><table><thead><tr><th>Button</th><th>What it does</th></tr></thead><tbody>
+      <tr><td>← Back</td><td>Returns to previous page (browser history)</td></tr>
+      <tr><td>🎯 Focus</td><td>Toggles <a href="#focus-mode">Focus Mode</a> — replaces full text with a 5-sentence AI summary</td></tr>
+      <tr><td>🔊 Listen</td><td>Starts <a href="#tts">text-to-speech</a> via ElevenLabs</td></tr>
+      <tr><td>⏸ / ▶ Pause/Play</td><td>Pauses or resumes audio playback</td></tr>
+      <tr><td>🔇 Stop</td><td>Stops audio and resets (visible only while audio is active)</td></tr>
+      <tr><td>📌 Pin</td><td>Pins or unpins the story (max 3)</td></tr>
+      <tr><td>🔗 Share</td><td>Copies a shareable link to clipboard</td></tr>
+    </tbody></table></div>
+    <h3>Feedback</h3>
+    <p>Below the article: 👍 / 👎. After voting, a detail panel opens with tag chips and a free-text box. One time per brief.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0">
+      <div class="card" style="padding:14px"><p style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:8px;margin-top:0">👍 Positive tags</p><div style="display:flex;flex-wrap:wrap;gap:4px"><span class="badge bg">Clear writing</span><span class="badge bg">Right length</span><span class="badge bg">Good sources</span><span class="badge bg">Useful topic</span><span class="badge bg">Balanced view</span></div></div>
+      <div class="card" style="padding:14px"><p style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:8px;margin-top:0">👎 Negative tags</p><div style="display:flex;flex-wrap:wrap;gap:4px"><span class="badge br">Too long</span><span class="badge br">Too short</span><span class="badge br">Confusing</span><span class="badge br">Missing context</span><span class="badge br">Biased</span><span class="badge br">Wrong topic</span></div></div>
+    </div>
+    <h3>Sources &amp; Follow This Story</h3>
+    <p>Each source is listed at the bottom with a clickable link and a <a href="#bias-indicator">political bias label</a> for known outlets. Related briefs on the same topic appear in a "Follow This Story" section below.</p>
+  </section>
+
+  <!-- My Topics -->
+  <section id="my-topics" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>My Topics</h2>
+    <p class="lead">Open the topic drawer by clicking <strong>My Topics</strong> in the header or via the profile dropdown. Changes save instantly and apply to tomorrow's briefing.</p>
+    <h3>Topic hierarchy</h3>
+    <pre>Group → Category → Subtopic
+
+Example:
+Technology
+  └─ Artificial Intelligence
+       └─ ChatGPT &amp; LLMs
+       └─ AI Ethics
+       └─ Generative AI</pre>
+    <p>You subscribe at the <strong>subtopic</strong> level. Group and category are navigation only.</p>
+    <h3>Using the drawer</h3>
+    <ol>
+      <li>Click a <strong>Group</strong> to expand it</li>
+      <li>Click a <strong>Category</strong> to expand its subtopics</li>
+      <li>Toggle individual <strong>subtopics</strong>, or use <strong>Select all / Deselect all</strong></li>
+      <li>Use the <strong>search box</strong> to filter — all matching groups expand automatically</li>
+    </ol>
+    <div class="callout cn"><span class="ci">💡</span><p><strong>Tip:</strong> The count badge on each group shows how many subtopics you've selected. Fully-selected categories get a highlight border. Click <strong>Done</strong> to close — topics are already saved.</p></div>
+  </section>
+
+  <!-- Past Briefings -->
+  <section id="past-briefings" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>Past Briefings</h2>
+    <p class="lead">Available at <code>/briefings</code> — or Profile → Past Briefings. Shows all your <em>personal</em> briefings, the ones sent to your email.</p>
+    <ul>
+      <li><strong>Search</strong> — filter by topic name, date, or content keywords</li>
+      <li><strong>Expand a row</strong> — click any card to expand a content preview</li>
+      <li><strong>Read full</strong> — opens the brief detail page</li>
+      <li><strong>Delete</strong> — permanently removes the briefing. Cannot be undone.</li>
+    </ul>
+    <div class="callout cw"><span class="ci">⚠️</span><p><strong>Note:</strong> This page shows only your personal briefings. The Explore section on the dashboard shows the full public brief library.</p></div>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>Settings</h2>
+    <p class="lead">Accessible at <code>/settings</code>. Four sections: Profile, Delivery Preferences, Change Email, Change Password.</p>
+    <h3>Profile</h3>
+    <ul>
+      <li><strong>First name</strong> — used in the dashboard greeting</li>
+      <li><strong>Profile picture</strong> — click the camera icon to upload. Max 5 MB, any image format. "Remove picture" to delete.</li>
+    </ul>
+    <h3>Delivery Preferences</h3>
+    <div class="tw"><table><thead><tr><th>Setting</th><th>Options</th><th>Default</th></tr></thead><tbody>
+      <tr><td>Send time</td><td>Every 30 min (12:00 AM – 11:30 PM)</td><td>7:00 AM</td></tr>
+      <tr><td>Timezone</td><td>15 zones from Honolulu to Tokyo</td><td>Browser-detected</td></tr>
+      <tr><td>Briefing Length</td><td>Short (~150w) / Medium (~300w) / Deep Dive (~500w)</td><td>Medium</td></tr>
+      <tr><td>Digest Length</td><td>Quick (3 stories) / Standard (7) / Deep Dive (12+)</td><td>Standard</td></tr>
+      <tr><td>Language</td><td>English, Spanish, French, German, Portuguese, Italian, Japanese, Korean, Chinese, Arabic, Hindi, Dutch</td><td>English</td></tr>
+      <tr><td>Weekly summary</td><td>Toggle on/off — Sunday highlights digest</td><td>Off</td></tr>
+    </tbody></table></div>
+    <div class="callout cn"><span class="ci">💡</span><p><strong>Important:</strong> Click <strong>Save Preferences</strong> after changes. Delivery settings do not auto-save.</p></div>
+    <h3>Change Email</h3>
+    <p>Enter and confirm your new email, then click <strong>Update Email</strong>. A confirmation link goes to the new address — the change only takes effect after clicking it.</p>
+    <h3>Change Password</h3>
+    <p>Requires your current password plus a new one (minimum 6 characters). The app re-authenticates before applying the change.</p>
+  </section>
+
+  <!-- Shared Briefs -->
+  <section id="shared-briefs" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Core Pages</span></div>
+    <h2>Shared Briefs</h2>
+    <p class="lead">Any brief can be shared via a link that works without logging in at <code>breifd.it/shared/[id]</code>.</p>
+    <h3>How to share</h3>
+    <ul>
+      <li><strong>From the dashboard</strong> — hover a card, click the 🔗 icon</li>
+      <li><strong>From brief detail</strong> — click the 🔗 icon in the header</li>
+    </ul>
+    <div class="callout cn"><span class="ci">💡</span><p><strong>For personal briefings:</strong> Your briefing is private by default. The first time you share it, breifd marks it public so the link works. Public briefs are already shareable. Your referral code is appended to the URL automatically.</p></div>
+    <h3>The shared brief page</h3>
+    <p>Recipients see the full article plus a "Get briefs like this every morning. It's free." signup CTA — no login required.</p>
+  </section>
+
+  <!-- Keyboard Shortcuts -->
+  <section id="keyboard-shortcuts" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Keyboard Shortcuts</h2>
+    <p class="lead">Shortcuts are active on the <strong>Dashboard</strong> when focus is not in a text input. Press <kbd>?</kbd> anytime to see the in-app overlay.</p>
+    <div class="mock"><div class="mf">
+      <div class="mc"><div class="md md-r"></div><div class="md md-y"></div><div class="md md-g"></div><div class="mu">breifd.it/dashboard</div></div>
+      <div class="mb"><div class="mdover"><div class="mdlg">
+        <div class="mdlg-t">⌨️ Keyboard shortcuts</div>
+        <div class="msr"><span>Next story</span><span class="mkbd">J</span></div>
+        <div class="msr"><span>Previous story</span><span class="mkbd">K</span></div>
+        <div class="msr"><span>Pin focused story</span><span class="mkbd">S</span></div>
+        <div class="msr"><span>Open focused story</span><span class="mkbd">Enter</span></div>
+        <div class="msr"><span>Close / go back</span><span class="mkbd">Esc</span></div>
+        <div class="msr"><span>Show this help</span><span class="mkbd">?</span></div>
+      </div></div></div>
+    </div><p class="caption">Press <kbd>?</kbd> anywhere on the dashboard to open the shortcuts overlay</p></div>
+    <div class="tw"><table><thead><tr><th>Key</th><th>Action</th><th>Notes</th></tr></thead><tbody>
+      <tr><td><kbd>J</kbd></td><td>Next story</td><td>Moves focus ring down the grid; auto-scrolls into view</td></tr>
+      <tr><td><kbd>K</kbd></td><td>Previous story</td><td>Moves focus ring up</td></tr>
+      <tr><td><kbd>S</kbd></td><td>Save/bookmark</td><td>Toggles pin on focused card (max 3) — labeled "Save/bookmark" in the in-app dialog</td></tr>
+      <tr><td><kbd>Enter</kbd></td><td>Open focused story</td><td>Navigates to <code>/brief/:id</code></td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>Close / go back</td><td>Dismisses open panels or navigates back</td></tr>
+      <tr><td><kbd>?</kbd></td><td>Show shortcuts help</td><td>Opens the shortcuts reference dialog</td></tr>
+    </tbody></table></div>
+    <div class="callout cw"><span class="ci">⚠️</span><p><strong>Gotcha:</strong> Shortcuts are disabled when a text input is focused. Click anywhere on the page background first to re-activate them.</p></div>
+  </section>
+
+  <!-- Focus Mode -->
+  <section id="focus-mode" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Focus Mode</h2>
+    <p class="lead">Focus Mode swaps the full article for a concise <strong>5-sentence AI summary</strong> — perfect for skimming on busy mornings.</p>
+    <ul>
+      <li>Toggle via the 🎯 icon in the brief detail header</li>
+      <li>Summary generated on-demand by the <code>explain-story</code> edge function</li>
+      <li>State persists in localStorage — returning to the tab keeps you in Focus Mode</li>
+      <li>Click <strong>"Read full brief →"</strong> at the bottom to exit and see the full article</li>
+    </ul>
+    <div class="callout cn"><span class="ci">💡</span><p><strong>Mood integration:</strong> If you select "Stressed" or "Low" in the daily mood check-in, Focus Mode is automatically enabled and a toast confirms it.</p></div>
+  </section>
+
+  <!-- TTS -->
+  <section id="tts" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Listen (Audio)</h2>
+    <p class="lead">Every brief can be read aloud using ElevenLabs TTS. Available via the 🔊 icon on the brief detail page.</p>
+    <div class="tw"><table><thead><tr><th>State</th><th>Icon</th><th>What to do</th></tr></thead><tbody>
+      <tr><td>Idle</td><td>🔊</td><td>Click to generate and start audio</td></tr>
+      <tr><td>Loading</td><td>⏳ spinning</td><td>Wait — audio is being generated (takes a few seconds)</td></tr>
+      <tr><td>Playing</td><td>⏸</td><td>Click to pause. Progress bar shows position.</td></tr>
+      <tr><td>Paused</td><td>▶</td><td>Click to resume</td></tr>
+      <tr><td>Active</td><td>🔇 Stop</td><td>Stops audio and resets to beginning</td></tr>
+    </tbody></table></div>
+    <div class="callout cw"><span class="ci">⚠️</span><p><strong>Note:</strong> Audio is generated fresh each time you click play. Navigating away stops playback.</p></div>
+  </section>
+
+  <!-- Pinning -->
+  <section id="pinning" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Pinning Stories</h2>
+    <p class="lead">Pin up to 3 stories to keep them at the top of your dashboard for quick access. Pins sync to your account and persist across devices.</p>
+    <ul>
+      <li><strong>From dashboard</strong> — hover a card, click the 📌 icon (top-right of card)</li>
+      <li><strong>From brief detail</strong> — click the 📌 icon in the header</li>
+      <li><strong>Via keyboard</strong> — press <kbd>S</kbd> on the focused card</li>
+    </ul>
+    <div class="callout cw"><span class="ci">⚠️</span><p><strong>Limit:</strong> Maximum 3 pins. If you try to pin a 4th: <em>"Max 3 pinned stories. Unpin one first."</em> Unpin by clicking the same 📌 button again.</p></div>
+  </section>
+
+  <!-- Mood Check-in -->
+  <section id="mood-checkin" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Mood Check-in</h2>
+    <p class="lead">Once per day, a dialog appears ~800ms after the dashboard briefing loads asking <em>"How are you feeling today?"</em></p>
+    <div class="tw"><table><thead><tr><th>Option</th><th>Effect</th></tr></thead><tbody>
+      <tr><td>😊 Great</td><td>No special behavior</td></tr>
+      <tr><td>🙂 Good</td><td>No special behavior</td></tr>
+      <tr><td>😐 Neutral</td><td>No special behavior</td></tr>
+      <tr><td>😰 Stressed</td><td>Enables Focus Mode + confirmation toast</td></tr>
+      <tr><td>😔 Low</td><td>Enables Focus Mode + confirmation toast</td></tr>
+    </tbody></table></div>
+    <p>The date is saved in localStorage the moment the dialog opens — so closing without selecting still counts as today's check-in. The dialog won't appear again until the next day. When Stressed or Low is selected, the toast reads: <em>"Focus mode enabled — showing a calmer briefing today."</em> 🧘</p>
+  </section>
+
+  <!-- Bias Indicator -->
+  <section id="bias-indicator" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Source Bias Labels</h2>
+    <p class="lead">When a source is from a recognized news outlet, a political lean label appears next to it in the sources section of a brief.</p>
+    <div class="bias-row">
+      <span class="bpill" style="background:#1e3a5f;color:#60a5fa">Left</span>
+      <span class="bpill" style="background:#1a3a4a;color:#38bdf8">Center-Left</span>
+      <span class="bpill" style="background:#1a3a2a;color:#4ade80">Center</span>
+      <span class="bpill" style="background:#3a2a1a;color:#fb923c">Center-Right</span>
+      <span class="bpill" style="background:#3a1a1a;color:#f87171">Right</span>
+    </div>
+    <p>Recognized outlets include: NYT (Center-Left), BBC (Center), Reuters (Center), WSJ (Center-Right), Fox News (Right), Vox (Left), NPR (Center-Left), Bloomberg (Center), AP News (Center), and 40+ more (53 total). Unknown outlets show no label.</p>
+    <div class="callout cn"><span class="ci">💡</span><p><strong>Note:</strong> These labels are static, based on a curated list in the codebase. They reflect general editorial direction, not any individual article's bias.</p></div>
+  </section>
+
+  <!-- Referral -->
+  <section id="referral" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Referrals</h2>
+    <p class="lead">Every account has a unique referral code. Share your link and your friend gets 10% off their first 3 months when paid plans launch.</p>
+    <ul>
+      <li>Access via: Profile dropdown → <strong>Share breifd</strong></li>
+      <li>Copies <code>breifd.it/signup?ref=[your-code]</code> to clipboard</li>
+      <li>Your referral code is also embedded in brief share links automatically</li>
+      <li>If your code isn't available yet: <em>"Referral code not available yet"</em></li>
+    </ul>
+  </section>
+
+  <!-- Tutorial -->
+  <section id="tutorial" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Features</span></div>
+    <h2>Dashboard Tutorial</h2>
+    <p class="lead">A 4-step guided tour runs automatically for first-time users. Reopen it via the ❓ button (desktop) or Profile → Show tutorial (mobile).</p>
+    <div class="tw"><table><thead><tr><th>Step</th><th>Highlights</th><th>Message</th></tr></thead><tbody>
+      <tr><td>1 of 4</td><td>Your daily briefing lives here</td><td>"Every morning, your personalized briefing lands at the top. Tap to read in full or listen to the audio version."</td></tr>
+      <tr><td>2 of 4</td><td>Edit your topics anytime</td><td>"Not loving a topic? Update your interests here and tomorrow's briefing will reflect the change."</td></tr>
+      <tr><td>3 of 4</td><td>Revisit past briefings</td><td>"All your previous briefings are saved here, so you can scroll back anytime."</td></tr>
+      <tr><td>4 of 4</td><td>Change your delivery time</td><td>"Pick the time your briefing hits your inbox. You're all set — enjoy your first briefing tomorrow morning."</td></tr>
+    </tbody></table></div>
+    <p>Click anywhere on the backdrop to skip. Press <kbd>Esc</kbd> to close. "Got it" on step 4 marks the tutorial complete so it won't auto-show again.</p>
+  </section>
+
+  <!-- Known Issues -->
+  <section id="known-bugs" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Reference</span></div>
+    <h2>Known Issues</h2>
+    <p class="lead">A few behaviors to be aware of — some are known bugs, some are working as designed.</p>
+    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge br">Bug</span><strong>/privacy redirects to /pricing</strong></div>
+      <p>Navigating to <code>breifd.it/privacy</code> may redirect to <code>/pricing</code>. The Privacy Policy page exists in code but a hosting-level rule intercepts the route. <strong>Workaround:</strong> contact <a href="mailto:hello@breifd.it">hello@breifd.it</a> for a copy.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bw">Behavior</span><strong>Briefing not showing today</strong></div>
+      <p>Briefings are generated overnight and sent at 7 AM in your timezone. If it's before 7 AM or you just signed up, this is normal. Check Settings → Delivery Preferences to verify your timezone.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bw">Behavior</span><strong>Keyboard shortcuts not responding</strong></div>
+      <p>Shortcuts (<kbd>J</kbd>, <kbd>K</kbd>, etc.) are disabled when a text input is focused. Click anywhere on the page background first. The grid also needs at least one card to work.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bw">Behavior</span><strong>"Forgot password?" opens a dialog, not a new page</strong></div>
+      <p>The "Forgot password?" link opens a modal — it does not navigate to a new page. Click the link text directly (not the surrounding area), enter your email, click <strong>Send reset link</strong>.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bw">Behavior</span><strong>TTS fails or times out</strong></div>
+      <p>Audio generation can fail if ElevenLabs is slow. You'll see <em>"Failed to generate audio."</em> Try again in a few seconds. Longer briefings take longer to generate.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="badge bw">Behavior</span><strong>Shared personal brief says "Brief not found"</strong></div>
+      <p>Personal briefings are private until shared. If you copied a URL bar link before clicking the share button, recipients see "Brief not found." Always use the 🔗 share button — it marks the brief public before copying the link.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Reference</span></div>
+    <h2>FAQ</h2>
+    <p class="lead">Common questions, answered.</p>
+    <details><summary>When does my briefing arrive?</summary><div class="faq-body">Every morning at the time you set in Settings (default 7:00 AM). Check Settings → Delivery Preferences → Timezone if it seems off.</div></details>
+    <details><summary>I didn't get a briefing today. What happened?</summary><div class="faq-body">Check your spam folder first. Verify your topics are set (My Topics) and your delivery time/timezone are correct. If the briefing shows in the app but not in email, contact <a href="mailto:hello@breifd.it">hello@breifd.it</a>.</div></details>
+    <details><summary>Can I change my topics after signing up?</summary><div class="faq-body">Yes, anytime. Open My Topics from the dashboard header or profile dropdown. Changes are instant — tomorrow's briefing reflects your updated topics.</div></details>
+    <details><summary>How many topics can I select?</summary><div class="faq-body">Unlimited. All 159 topics and 1,048 subtopics are free. Select as many or as few as you like.</div></details>
+    <details><summary>What languages are supported?</summary><div class="faq-body">English, Spanish, French, German, Portuguese, Italian, Japanese, Korean, Chinese (Simplified), Arabic, Hindi, and Dutch. Set your language in Settings → Delivery Preferences.</div></details>
+    <details><summary>Is there a mobile app?</summary><div class="faq-body">Not yet. breifd is a web app that works great on mobile browsers. The daily email renders perfectly in any email client.</div></details>
+    <details><summary>How do I delete my account?</summary><div class="faq-body">Account deletion is not available through the UI. Email <a href="mailto:hello@breifd.it">hello@breifd.it</a> to request deletion.</div></details>
+    <details><summary>What's the difference between "Briefing Length" and "Digest Length"?</summary><div class="faq-body"><strong>Briefing Length</strong> controls how long each individual story is (Short ≈150w, Medium ≈300w, Deep Dive ≈500w). <strong>Digest Length</strong> controls how many stories appear (Quick = 3, Standard = 7, Deep Dive = 12+).</div></details>
+    <details><summary>Why does the Explore feed show yesterday's briefs?</summary><div class="faq-body">If today's public briefs haven't been generated yet (usually before 7 AM), the app falls back to the most recent day that has content — but only if that day is within the last 2 days. If generation has been failing for longer than 2 days, the feed will show empty rather than serving very stale content.</div></details>
+    <details><summary>What is Focus Mode and when should I use it?</summary><div class="faq-body">Focus Mode generates a 5-sentence AI summary — great when you want key takeaways without reading everything. Toggle with the 🎯 icon. Also auto-activates when you select "Stressed" or "Low" in the mood check-in.</div></details>
+  </section>
+
+  <!-- Routes -->
+  <section id="routes" class="sec">
+    <div class="breadcrumb"><a href="#overview">Docs</a><span class="bc-sep">/</span><span>Reference</span></div>
+    <h2>Pages &amp; Routes</h2>
+    <p class="lead">Every URL in the app and whether it requires authentication.</p>
+    <div class="tw"><table><thead><tr><th>Route</th><th>Page</th><th>Auth</th></tr></thead><tbody>
+      <tr><td><code>/</code></td><td>Landing page</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/signup</code></td><td>Create account</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/login</code></td><td>Sign in</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/onboarding</code></td><td>Welcome / Get started</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/onboarding/topics</code></td><td>Topic selection</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/verify-email</code></td><td>Email verification prompt</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/reset-password</code></td><td>Set new password (from email link)</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/dashboard</code></td><td>Main dashboard</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/brief/:id</code></td><td>Brief detail reader</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/briefings</code></td><td>Personal briefings archive</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/shared/:id</code></td><td>Public shared brief</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/settings</code></td><td>User settings</td><td><span class="badge ba">Auth required</span></td></tr>
+      <tr><td><code>/pricing</code></td><td>Pricing page (free)</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/privacy</code></td><td>Privacy policy</td><td><span class="badge bw">⚠️ May redirect</span></td></tr>
+      <tr><td><code>/terms</code></td><td>Terms of service</td><td><span class="badge bg">Public</span></td></tr>
+      <tr><td><code>/topics</code></td><td>→ <code>/dashboard?topics=open</code></td><td><span class="badge bb">Redirect</span></td></tr>
+      <tr><td><code>/brief</code></td><td>→ <code>/briefings</code></td><td><span class="badge bb">Redirect</span></td></tr>
+      <tr><td><code>/admin/invite</code></td><td>Admin invite page</td><td><span class="badge ba">Auth required</span></td></tr>
+    </tbody></table></div>
+  </section>
+
+  <footer class="footer">
+    <span>breifd documentation · June 2026</span>
+    <div class="footer-links">
+      <a href="mailto:hello@breifd.it">hello@breifd.it</a>
+      <a href="https://breifd.it" target="_blank" rel="noopener">breifd.it</a>
+      <a href="https://sanjays.co" target="_blank" rel="noopener">sanjays.co</a>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ── Right TOC sidebar ── -->
+<nav class="toc" id="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#overview" class="toc-link" data-id="overview">Introduction</a>
+  <a href="#what-is-breifd" class="toc-link" data-id="what-is-breifd">What is breifd?</a>
+  <a href="#getting-started" class="toc-link" data-id="getting-started">Getting Started</a>
+  <a href="#dashboard" class="toc-link" data-id="dashboard">Dashboard</a>
+  <a href="#brief-detail" class="toc-link" data-id="brief-detail">Reading a Brief</a>
+  <a href="#my-topics" class="toc-link" data-id="my-topics">My Topics</a>
+  <a href="#past-briefings" class="toc-link" data-id="past-briefings">Past Briefings</a>
+  <a href="#settings" class="toc-link" data-id="settings">Settings</a>
+  <a href="#shared-briefs" class="toc-link" data-id="shared-briefs">Shared Briefs</a>
+  <a href="#keyboard-shortcuts" class="toc-link" data-id="keyboard-shortcuts">Keyboard Shortcuts</a>
+  <a href="#focus-mode" class="toc-link" data-id="focus-mode">Focus Mode</a>
+  <a href="#tts" class="toc-link" data-id="tts">Listen (Audio)</a>
+  <a href="#pinning" class="toc-link" data-id="pinning">Pinning Stories</a>
+  <a href="#mood-checkin" class="toc-link" data-id="mood-checkin">Mood Check-in</a>
+  <a href="#bias-indicator" class="toc-link" data-id="bias-indicator">Source Bias Labels</a>
+  <a href="#referral" class="toc-link" data-id="referral">Referrals</a>
+  <a href="#tutorial" class="toc-link" data-id="tutorial">Tutorial</a>
+  <a href="#known-bugs" class="toc-link" data-id="known-bugs">Known Issues</a>
+  <a href="#faq" class="toc-link" data-id="faq">FAQ</a>
+  <a href="#routes" class="toc-link" data-id="routes">Pages &amp; Routes</a>
+</nav>
+
+</div><!-- end .layout -->
+
+<script>
+  const ids = ['overview','what-is-breifd','getting-started','dashboard','brief-detail','my-topics','past-briefings','settings','shared-briefs','keyboard-shortcuts','focus-mode','tts','pinning','mood-checkin','bias-indicator','referral','tutorial','known-bugs','faq','routes'];
+
+  /* Theme */
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('theme-btn').textContent = t === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('docs-theme', t);
+  }
+  function toggleTheme() {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('docs-theme');
+  if (saved) applyTheme(saved);
+
+  /* Sidebar group toggle */
+  function toggleSG(hdr) { hdr.closest('.sg').classList.toggle('closed'); }
+
+  /* Scroll spy — updates both left sidebar and right TOC */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id;
+      document.querySelectorAll('.sl').forEach(a => a.classList.remove('active'));
+      document.querySelectorAll('.toc-link').forEach(a => a.classList.remove('active'));
+      const sl = document.querySelector(`.sl[href="#${id}"]`);
+      const tl = document.querySelector(`.toc-link[href="#${id}"]`);
+      if (sl) { sl.classList.add('active'); sl.closest('.sg')?.classList.remove('closed'); }
+      if (tl) tl.classList.add('active');
+    });
+  }, { rootMargin: '-58px 0px -60% 0px' });
+  ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+  /* Search */
+  function doSearch(q) {
+    const term = q.toLowerCase().trim();
+    const hero = document.getElementById('overview');
+    if (!term) {
+      ids.forEach(id => { const s = document.getElementById(id)?.closest('.sec'); if (s) s.classList.remove('s-hide'); });
+      return;
+    }
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const sec = el.closest ? el.parentElement?.id === id ? el : el.closest('.sec') : null;
+      const target = el.classList.contains('sec') ? el : el.closest('.sec');
+      if (target) target.classList.toggle('s-hide', !target.textContent.toLowerCase().includes(term));
+    });
+  }
+
+  /* ⌘K focuses nav search */
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('nav-search')?.focus();
+    }
+  });
+</script>
+</body>
+</html>
